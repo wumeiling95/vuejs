@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #div1{
+            width: 200px;
+            height: 200px;
+            background: red;
+        }
+        #div2{
+            width: 100px;
+            height: 100px;
+            background-color:green;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- <button v-on:click="clickhandler">btn</button>以下是简写形式@ -->
+        <button @click.once="clickhandler(2,$event)">btn</button>
+        <!-- 只能一次的修饰符 -->
+        <!-- 事件对象$event -->
+        <!-- <h1>{{number}}</h1> -->
+        <h1 v-text="number"></h1>
+        <button v-on="{ mousedown: doThis, mouseup: doThat }">btn2</button>
+        <!-- 绑定多个事件 -->
+
+        <div id="div1" @click="clickDiv1">
+            <!-- 阻止事件冒泡 -->
+            <!-- <div id="div2" @click="clickDiv2($event)"></div> -->
+            <div id="div2" @click.stop="clickDiv2"></div>
+            <!-- stop是修饰符 -->
+        </div>
+
+        <a href="http://www.baidu.com" @click.prevent="baiduClick">baidu</a>
+        <!-- 阻止默认行为的修饰符 -->
+        <!-- @submit.prevent 阻止默认行为，但没有其他动作 -->
+        <!-- @click.stop.prevent 冒泡和默认行为都被阻止 -->
+
+        <!-- <input type="text" @keyup="keyupHandler($event)"> -->
+        <input type="text" @keyup.13="keyupHandler($event)">
+        <!-- <input type="text" @keyup.enter="keyupHandler($event)"> -->
+        <!-- 取值一般都是keyup，keydown都是上一个状态 -->
+
+
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        new Vue({
+            el:"#app",
+            data:{
+                number:0
+            },
+            methods:{
+                clickhandler(n,e){
+                    console.log(e);
+                    console.log(Math.random());
+                    this.number+=n;
+                },
+                doThis(){
+                    console.log('doThis');
+                },
+                doThat(){
+                    console.log('doThat');
+                },
+                clickDiv1(){
+                    console.log('div1');
+                },
+                clickDiv2(e){
+                    console.log('div2');
+                    // e.stopPropagation();
+                },
+                baiduClick(e){
+                    // return false;并不是
+                    // e.preventDefault();
+                    // 真正阻止默认行为
+                },
+                keyupHandler(e){
+                    // if(e.keyCode == 13){
+                        // 回车事件
+                        console.log(123);
+                    // }
+                }
+            }
+        })
+    </script>
+</html>
+</body>
