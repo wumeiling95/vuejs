@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- isLogin=1表示登录的  isLogin=0则是未登录的 -->
+        <!-- //页面保留：欢迎你 -->
+        <span v-if="isLogin == 1 ? true:false">
+            {{msg}}
+        </span>
+        <!-- v-if="true/false" -->
+        <span v-else>{{sss}}</span>
+
+
+<br>
+        <span v-if="letter=='A'">A</span>
+        <span v-else-if="letter=='B'">B</span>
+        <span v-else>C</span>
+
+<br>
+
+        <span v-show="isShow">SHOW</span>
+        <span v-show="!isShow">Not SHOW</span>
+
+<br>
+
+
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        let vm = new Vue({
+            el:"#app",
+            data:{
+                isLogin:0,
+                msg:'欢迎：微创网讯',
+                sss:'请登录',
+                letter:'XX',
+                isShow:false
+            }
+        })
+    </script>
+</body>
+</html>
