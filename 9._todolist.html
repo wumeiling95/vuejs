@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./bootstrap-3.3.7-dist/css/bootstrap.css">
+</head>
+<body>
+    <div id="app" class="text-center">
+        <h1>todoList</h1>
+            <table class="table">
+                    <thead>
+                        <tr>
+                            <td>选择</td>
+                            <td>商品名称</td>
+                            <td>商品价格</td>
+                            <td>删除</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="product in productList">
+                            <td><input type="checkbox"></td>
+                            <td>{{product.name}}</td>
+                            <td>{{product.price}}</td>
+                            <td>删除</td>        
+                        </tr>    
+                    </tbody>
+                </table>
+    </div>
+    <script src="./vue.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <script src="./bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+    <script>
+        new Vue({
+            el:'#app',
+            data:{
+                productList:[{
+                    name:"衣服",
+                    price:123,
+                },{
+                    name:"裤子",
+                    price:456,
+                },{
+                    name:"鞋",
+                    price:789,
+                },{
+                    name:"帽子",
+                    price:786,
+                },{
+                    name:"手套",
+                    price:86,
+                }
+                
+            ]}
+        });
+    </script>
+</body>
+</html>

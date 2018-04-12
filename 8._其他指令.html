@@ -8,17 +8,24 @@
 </head>
 <body>
     <div id="app">
-        <span v-text="msg"></span>
-        <span v-html="msg"></span>
-        //html识别标签
+        <h1 v-pre>{{msg}}</h1>
+        <!-- 非要显示{{msg}}，叫原样输出 -->
+        <h2 v-cloak>{{msg}}</h2>
+        <!-- 渲染完成后显示 -->
+        <button @click="add">btn</button>
+        <h1 v-once>{{num}}</h1>
+        <!-- 只渲染一次，然后就不会变化了 -->
     </div>
     <script src="vue.js"></script>
     <script>
         new Vue({
             el:'#app',
             data:{
-                // msg:"hello"
-                msg:'<h3>hhh</h3>'
+                msg:'hello',
+                num:0
+            },
+            methods:{
+                add(){this.num++;}
             }
         })
     </script>
