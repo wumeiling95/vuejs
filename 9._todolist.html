@@ -6,28 +6,65 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link rel="stylesheet" href="./bootstrap-3.3.7-dist/css/bootstrap.css">
+    <style>
+        #app .red{
+            background-color: red;
+        }
+        .form-add{
+            margin-top:20px;
+        }
+    </style>
 </head>
 <body>
     <div id="app" class="text-center">
         <h1>todoList</h1>
-            <table class="table">
-                    <thead>
-                        <tr>
-                            <td>选择</td>
-                            <td>商品名称</td>
-                            <td>商品价格</td>
-                            <td>删除</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="product in productList">
-                            <td><input type="checkbox"></td>
-                            <td>{{product.name}}</td>
-                            <td>{{product.price}}</td>
-                            <td>删除</td>        
-                        </tr>    
-                    </tbody>
-                </table>
+        <hr>
+        <form class="form-inline" @submit.prevent>
+                <div class="form-group">
+                    <input @keyup.enter="search" v-model="keywords" type="text" class="form-control" placeholder="请输入关键字" style=" margin-right:30px;">
+                </div>
+                <button @click="search" type="button" class="btn btn-default">搜索</button>
+        </form>
+        <form class="form-inline" @submit.prevent>
+            <div class="form-group">
+                <label for="product-name">商品名称</label>
+                <input v-model="productName" type="text" class="form-control" id="product-name" placeholder="请输入名称" style=" margin-right:30px;">
+            </div>
+            <div class="form-group">
+                <label for="product-price">价格</label>
+                <input v-model.number="productPrice" type="number" class="form-control" id="exampleInputEm  ail2" placeholder="请输入价格">
+            </div>
+            <button @click="addProduct" type="button" class="btn btn-default">增加</button>
+        </form>
+        <table class="form-add table table-striped table-bordered table-hover">
+            <thead>
+                <tr>
+                    <td>选择</td>
+                    <td>商品名称</td>
+                    <td>商品价格</td>
+                    <td>删除</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(product,index) in productList" @click="select(product)" :class="{red:product.isSelect}">
+                    <td><input type="checkbox" @click.stop v-model="checkedList" :value="index"></td>
+                    <td>{{product.name}}</td>
+                    <td>{{product.price}}</td>
+                    <td><button @click.stop="delProduct(index)" class="btn btn-warning glyphicon glyphicon-remove  btn-mini" type="button"></button></td>        
+                </tr> 
+                <tr>
+                    <td>
+                        <button @click="delChecked" class="btn btn-danger">删除选中</button>
+                    </td>
+                    <!-- <td colspan="3">
+                        总价:{{getSum()}}元
+                        </td> -->
+                    <td colspan="3">
+                        总价:{{csum}}元
+                    </td>
+                </tr>
+            </tbody>
+        </table>        
     </div>
     <script src="./vue.js"></script>
     <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
@@ -39,21 +76,96 @@
                 productList:[{
                     name:"衣服",
                     price:123,
+                    isSelect:false,
                 },{
                     name:"裤子",
                     price:456,
+                    isSelect:false,
                 },{
                     name:"鞋",
                     price:789,
+                    isSelect:false,
+                   
                 },{
                     name:"帽子",
                     price:786,
+                    isSelect:false,
+                   
                 },{
                     name:"手套",
                     price:86,
+                    isSelect:false,                  
+                }],
+                sum:0,
+                checkedList:[],
+                productName:"",
+                productPrice:"",
+                keywords:""
+        },
+            methods:{
+                select(product){
+                    product.isSelect = !product.isSelect;
+                    if(product.isSelect){
+                        this.sum += product.price;
+                    }else{
+                        this.sum -= product.price;
+                    }
+                    this.getSum();
+                },
+                delProduct(index){
+                    this.productList.splice(index,1);
+                },
+                delChecked(){
+                    // for(item of this.checkedList){
+                    //     this.productList.splice(item,1);
+                    // }
+                    this.productList=this.productList.filter((item,index)=>{
+                        if(!this.checkedList.includes(index)){
+                            return item;
+                        }
+                    });
+                    this.checkedList = [];//清空数组，计算属性，可以删除数量
+                },
+                //不懂
+                getSum(){
+                    // this.sum = 0;   把sum全都编程temp
+                    let temp=0;
+                    this.productList.forEach((item,index)=>{
+                        //循环内容，小标，内容
+                        if(item.isSelect){
+                            temp += item.price;
+                        }
+                    });
+                    return temp;
+                },
+                addProduct(){
+                    this.productList.push({
+                        name:this.productName,
+                        price:this.productPrice,
+                        isSelect:false,                        
+                    });
+                    this.productName = this.productPrice ='';
+                },
+                search(){
+                    this.productList = this.productList.filter((item)=>{
+                        if(item.name.includes(this.keywords)||item.price.toString().includes(this.keywords)){
+                            return item;
+                        }
+                    })
                 }
-                
-            ]}
+            },
+            computed:{
+                csum(){
+                    let temp=0;
+                    this.productList.forEach((item,index)=>{
+                        //循环内容，小标，内容
+                        if(item.isSelect){
+                            temp += item.price;
+                        }
+                    });
+                    return temp;
+                }
+            }
         });
     </script>
 </body>

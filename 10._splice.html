@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let arr = ['a','b','c','d'];
+        // arr.splice(2,1,'d');//会改变原有的数组
+        // arr.splice(2,2,'e');
+        // arr.splice(2,2);
+
+        let newArr = arr.forEach((val,key)=>{
+            if(val=='c'){
+                return val;
+            }
+        })
+
+// forEach  没有返回值
+// Map      返回数组，符合返回，不符合undfined
+// filter   返回符合结果的值
+
+        console.log(newArr);
+    </script>
+</body>
+</html>
