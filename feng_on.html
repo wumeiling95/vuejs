@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .div1{
+            height: 100px;
+            width: 100px;
+            background-color:red;
+        }
+        .div2{
+            width: 50px;
+            height: 50px;
+            background-color:green;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div v-on:click="testClick(2,$event)">{{num}}</div>
+        <div @click="testClick(2,$event)"></div>
+        <div class="div1" @click="click1">
+            <div class="div2" @click="click2($event)"></div>
+            <div class="div2" @click.stop="click2"></div>
+        </div>
+        <!-- <a href="http://www.baidu.com" @click.prevent>baidu</a> -->
+        <a href="http://www.baidu.com" @click="click($event)">baidu</a>
+
+
+        <!-- <input @keyup.enter.once="keyup1($event)"> -->
+        <input @keyup.13.once="keyup1($event)">
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        let vm =new Vue({
+            el:"#app",
+            data:{
+                testif:"a",
+                num:0
+            },
+            methods:{
+                testClick(key,e){
+                    this.num += key;
+                    console.log(e);
+                },
+                click1(){
+                    console.log(1);
+                },
+                click2(e){
+                    console.log(2);
+                    e.stopPropagation();
+                },
+                click3(e){
+                    e.preventDefault();
+                },
+                keyup1(e){
+                    if(e.keyCode==13){
+                        console.log('enter');
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>

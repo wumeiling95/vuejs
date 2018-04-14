@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- <web></web> -->
+        <weichuang @click.native="add"></weichuang>
+        <h1>{{ num }}</h1>
+        <!-- 自定义一个组件，调用实例的方法，事件的后面需要用一个修饰符.native -->
+    </div>
+
+    <script src="vue.js"></script>
+    <script>
+        Vue.component('web',{
+            template:`<h1>{{msg}}</h1>`,
+            props:['msg']
+        });
+        Vue.component('weichuang',{
+            template:`<div>
+                        <h1>唯创组件</h1>
+                        <web msg='web组件'></web>
+                      </div>`
+        })
+        new Vue({
+            el:"#app",
+            data:{
+                num:0
+            },
+            methods:{
+                add(){
+                    this.num++;
+                }
+            }
+        })
+    </script>
+</body>
+</html>

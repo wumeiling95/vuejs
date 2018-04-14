@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <div v-weichuang="'green'">div</div>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        //全局的指令
+        // Vue.directive('weichuang',function(el,binding,vnode){
+        //     // console.log(el);
+        //     // console.log(binding);
+        //     // console.log(vnode);
+        //     el.style.backgroundColor = binding.value;
+        // })
+        Vue.directive('weichuang',{
+            bind(){
+                console.log('bind');//开始就绑定
+            },
+            inserted(){
+                console.log('inserted');//开始就绑定
+            },
+            conponentUpdated(){
+                console.log('conponentUpdated');
+            },
+            unbind(){
+                console.log('unbind');//解绑的时候调用此钩子函数
+            }
+        });
+        new Vue({
+            el:"#app"
+        })
+    </script>
+</body>
+</html>

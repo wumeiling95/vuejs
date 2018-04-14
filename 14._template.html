@@ -8,17 +8,20 @@
 </head>
 <body>
     <div id="app">
-        <span v-text="msg"></span>
-        <span v-html="msg"></span>
-        <!-- //html识别标签 -->
+        <template v-show="isShow">
+            <h1>h</h1>
+            <h1>h</h1>
+            <h1>h</h1>
+            <h1>h</h1>   
+        </template>
+        
     </div>
-    <script src="vue.js"></script>
+    <script src="./vue.js"></script>
     <script>
         new Vue({
             el:'#app',
             data:{
-                // msg:"hello"
-                msg:'<h3>hhh</h3>'
+                isShow:false,
             }
         })
     </script>

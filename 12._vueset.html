@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <button @click="change">change</button>
+        <div v-for="item in arr">{{item}}</div>
+        <div v-for="o in obj">{{o}}</div>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        new Vue({
+            el:"#app",
+            data:{
+                //根级属性：不能给对象赋值，不能通过下标的形式改变值
+                arr:['a','b','c','d'],
+                obj:{
+                    name:'lisi'
+                }
+            },
+            methods:{
+                change(){
+                    // this.arr[2] = 'e';
+                    // this.obj.age=11;
+                    Vue.set(this.arr,2,'e');//可以改变数组、对象的值了
+                    Vue.set(this.obj,'age',2);
+                    Object.assign(this.obj,{age:20});
+                }
+            }
+        });
+        // let arr = ['a','b','c','d'];
+        // console.log(arr);
+        // arr[2]='w';
+        // console.log(arr);
+
+        // let obj={
+        //     name:"lisi",
+        // };
+        // obj.name='zhangsan';
+        // console.log(obj);
+
+    </script>
+</body>
+</html>
