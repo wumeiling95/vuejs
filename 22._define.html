@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="ipt">
+    <h1 id="h1"></h1>
+    <script>
+        let oIpt = document.getElementById('ipt');
+        let oH1 = document.getElementById('h1');
+        let obj = {};
+        
+        oIpt.onkeyup = function(){
+            obj.name = this.value;
+        }
+        Object.defineProperty(obj,"name",{
+            get(){
+
+            },
+            set(val){
+                oH1.innerHTML = val
+            }
+        })
+
+        // 虚拟DOM在内存中，真实的dom挂载在浏览器中，虚拟dom是以js对象的模式去模拟一棵树形结构，
+        // 当前状态发生变化时，并不是直接改变dom，而是跟虚拟dom树进行比较，在同步到dom中
+
+        // let obj = {};
+
+        // Object.defineProperty(obj,'name',{
+        //     get(){
+        //         console.log('get');
+        //     },
+        //     set(){
+        //         console.log('set');
+        //     }        
+        // })
+        // obj.name="zhangsan";
+    </script>
+</body>
+</html>
